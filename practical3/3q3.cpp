@@ -2,7 +2,7 @@
 #include <cmath>
 
 /*
-Complex class
+creating a complex numbers class with overloaded operators
 */
 
 class Complex
