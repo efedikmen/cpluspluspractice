@@ -53,7 +53,7 @@ void BinomialModel::CheckData() const
     };
 };
 double BinomialModel::RiskNeutProb() const
-{ return (R-D)/(U-D); };
+{ return (double)(R-D)/(U-D); };
 double BinomialModel::S(int n, int i) const
 { 
     if (i > n || i < 0 || n < 0) exit(1);

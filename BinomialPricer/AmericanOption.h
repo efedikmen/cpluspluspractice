@@ -1,3 +1,4 @@
+#pragma once
 #include "Option.h"
 #include "BinomialModel.h"
 
