@@ -22,7 +22,7 @@ double normcdf(double x)
         return pdf;
     }
     return 1.0 - normcdf(-x);
-}
+};
 
 int main()
 {

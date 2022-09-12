@@ -1,11 +1,23 @@
-#include <iostream>
-#include <cmath>
+#include "NormalDistribution.h"
 
-/*
-    Part 2 Problem 8:
-    Implement the Moro algorithm for the inverse function of the cumulative
-    normal distribution. Call the resulting function norminv.
-*/
+double normcdf(double x)
+{
+    if (x >= 0)
+    {
+        double k = 1 / (1 + 0.2316419 * x);
+        double coefs[5] = {1.330274429, -1.821255978, 1.781477937, -0.356563782, 0.319381530};
+        double res = 0.0;
+        for (double a:coefs) 
+        {
+            res *= k;
+            res += a;
+        }
+        double pdf = 1 - sqrt(1 / (2 * M_PI)) * k * exp(- x * x / 2) * res;
+        return pdf;
+    }
+    return 1.0 - normcdf(-x);
+};
+
 double norminv(double x)
 {
     if (x < 0 || x > 1)
@@ -48,13 +60,3 @@ double norminv(double x)
     return (x > 0.5) ? t : -t;
 
 };
-
-int main()
-{
-    double tests[] = {0.025, 0.5, 0.95, 0.975};
-    for (double test:tests)
-    {
-        std::cout << "For x=" << test << ": Phi^-1(x)=" << norminv(test) << std::endl;
-    }
-    return 0;
-}
