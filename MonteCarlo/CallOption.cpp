@@ -2,7 +2,7 @@
 #include <cmath>
 #include "NormalDistribution.h"
 
-double CallOption::payoff(double z) const
+double CallOption::payoff(double z)
 {
     if (GetStrike()<z) return z-GetStrike();
     return 0;

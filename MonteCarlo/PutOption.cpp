@@ -2,7 +2,7 @@
 #include "NormalDistribution.h"
 #include <cmath>
 
-double PutOption::payoff(double z) const
+double PutOption::payoff(double z)
 {
     if (GetStrike()>z) return GetStrike()-z;
     return 0;

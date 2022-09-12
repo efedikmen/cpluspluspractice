@@ -1,6 +1,8 @@
 #pragma once
 #include "BlackScholes.h"
+#include "PathDependentOption.h"
 #include "PathIndependentOption.h"
+
 
 class MonteCarloPricer
 {
@@ -11,5 +13,6 @@ class MonteCarloPricer
         MonteCarloPricer();
         MonteCarloPricer(int steps, int paths);
         ~MonteCarloPricer(){};
-        double price(const BlackScholes &bsm, const PathIndependentOption &c) const;
+        double price(const BlackScholes &bsm, PathIndependentOption &c) const;
+        double price(const BlackScholes &bsm, PathDependentOption &k) const;
 };
