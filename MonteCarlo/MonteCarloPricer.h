@@ -15,4 +15,7 @@ class MonteCarloPricer
         ~MonteCarloPricer(){};
         double price(const BlackScholes &bsm, PathIndependentOption &c) const;
         double price(const BlackScholes &bsm, PathDependentOption &k) const;
+        double delta(BlackScholes &bsm, PathIndependentOption &c);
+        double delta(BlackScholes &bsm, PathDependentOption &k);
+
 };
