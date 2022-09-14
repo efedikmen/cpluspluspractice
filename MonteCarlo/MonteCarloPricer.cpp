@@ -1,6 +1,7 @@
 #include "MonteCarloPricer.h"
 #include <cmath>
 #include "RandomGenerator.h"
+#include <vector>
 
 MonteCarloPricer::MonteCarloPricer()
 {
@@ -36,6 +37,44 @@ double MonteCarloPricer::price(const BlackScholes &bsm, PathDependentOption &u) 
         res += u.payoff(bsm.GenerateRiskNeutralPricePath(T, Nsteps));
     }
     return exp(-bsm.GetRate()*(T-bsm.GetTime()))*res/Npaths;
+
+};
+PriceAndSE MonteCarloPricer::priceWithSE(const BlackScholes &bsm, PathIndependentOption &c) const
+{
+    PriceAndSE ret;
+    std::vector<double> pr;
+    double T = c.GetMaturity();
+    double t = bsm.GetTime();
+    double r = bsm.GetRate();
+    double res=0.0;
+    for (int i=0; i<Npaths; i++)
+    {
+        double price = c.payoff(bsm.GenerateRiskNeutralPricePath(T, Nsteps).back())*exp(-r*(T-t));
+        res += price;
+        pr.push_back(price);
+    }
+    ret.SetPrice(res/Npaths);
+    ret.SetSE(stddev(pr));
+    return ret;
+
+};
+PriceAndSE MonteCarloPricer::priceWithSE(const BlackScholes &bsm, PathDependentOption &c) const
+{
+    PriceAndSE ret;
+    std::vector<double> pr;
+    double T = c.GetMaturity();
+    double t = bsm.GetTime();
+    double r = bsm.GetRate();
+    double res=0.0;
+    for (int i=0; i<Npaths; i++)
+    {
+        double price = c.payoff(bsm.GenerateRiskNeutralPricePath(T, Nsteps))*exp(-r*(T-t));
+        res += price;
+        pr.push_back(price);
+    }
+    ret.SetPrice(res/Npaths);
+    ret.SetSE(stddev(pr)/sqrt(Npaths));
+    return ret;
 
 };
 double MonteCarloPricer::delta(BlackScholes &bsm, PathIndependentOption &c)

@@ -42,3 +42,19 @@ std::vector<double> boxmuller(int n)
     if (n<normal.size()) normal.pop_back();
     return normal;
 }; 
+
+// sample standard deviation calculator
+
+double stddev(std::vector<double> a)
+{
+    double avg = 0;
+    for (double x:a)
+    {avg+=x;}
+    avg/= a.size();
+    double sd = 0;
+    for (double x:a)
+    {
+        sd += pow(x-avg, 2);
+    }
+    return sqrt(sd/(a.size()-1));
+};
