@@ -8,7 +8,7 @@ after the other unchosen door is shown to be empty.
 
 int main()
 {
-    int N = 6e7; // number of simulations
+    int N = 1e7; // number of simulations
     int trials[2] = {0};
     for (int i = 0; i<N; i++)
     {
